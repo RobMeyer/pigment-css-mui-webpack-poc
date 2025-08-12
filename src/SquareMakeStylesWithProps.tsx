@@ -13,7 +13,7 @@ const useStyles = makeStyles(function styleMaker() {
     root: {
       width: "50px",
       height: "50px",
-      //transition: 'background 1s linear',
+      transition: 'background 0.3s ease',
       background: function propsToBackground(props: StyleProps) {
         return props.background;
       },

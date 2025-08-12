@@ -30,7 +30,7 @@ const divClass = css({
 })
 
 export function App() {
-  const [color, setColor] = useState('blue');
+  const [color, setColor] = useState('#0000ff');
   const [stressTestMode, setStressTestMode] = useState<'none' | 'makeStylesWithProp' | 'pigmentSx' | 'pigmentCss'>('none');
   const [squareCount, setSquareCount] = useState(2048);
 
