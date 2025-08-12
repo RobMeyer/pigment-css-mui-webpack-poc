@@ -1,0 +1,32 @@
+{
+  "name": "pigment-css-webpack-ts",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "webpack serve --mode development",
+    "build": "webpack build --mode production"
+  },
+  "dependencies": {
+    "@pigment-css/react": "latest",
+    "react": "^18.0.3",
+    "react-dom": "^18.0.3",
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.0",
+    "@mui/styles": "^5.15.0",
+    "@mui/icons-material": "^7.3.1"
+  },
+  "devDependencies": {
+    "@pigment-css/unplugin": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.0",
+    "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "latest",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
+  }
+}
