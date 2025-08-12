@@ -155,27 +155,27 @@ All times are in milliseconds (ms).
 
 ### 1) Render 2048 components
 
-| Method                      | Run 1 | Run 2 | Run 3 |
-| --------------------------- | ----: | ----: | ----: |
-| Pigment CSS (sx)            |  48.9 |  45.9 |  45.5 |
-| Pigment CSS (css class)     |  46.1 |  39.4 |  33.8 |
-| MUI makeStyles (with props) | 129.0 | 148.5 | 148.0 |
+| Method                      | Run 1 | Run 2 | Run 3 |   Avg |
+| --------------------------- | ----: | ----: | ----: | ----: |
+| Pigment CSS (sx)            |  48.9 |  45.9 |  45.5 |  46.8 |
+| Pigment CSS (css class)     |  46.1 |  39.4 |  33.8 |  39.8 |
+| MUI makeStyles (with props) | 129.0 | 148.5 | 148.0 | 141.8 |
 
 ### 2) Prop change → style update
 
-| Method                      | Run 1 | Run 2 | Run 3 |
-| --------------------------- | ----: | ----: | ----: |
-| Pigment CSS (sx)            |  43.7 |  45.4 |  45.8 |
-| Pigment CSS (css class)     |  42.7 |  51.3 |  57.3 |
-| MUI makeStyles (with props) | 102.6 | 103.7 |  93.5 |
+| Method                      | Run 1 | Run 2 | Run 3 |  Avg |
+| --------------------------- | ----: | ----: | ----: | ---: |
+| Pigment CSS (sx)            |  43.7 |  45.4 |  45.8 | 45.0 |
+| Pigment CSS (css class)     |  42.7 |  51.3 |  57.3 | 50.4 |
+| MUI makeStyles (with props) | 102.6 | 103.7 |  93.5 | 99.9 |
 
 ### 3) Unmount 2048 components
 
-| Method                      | Run 1 | Run 2 | Run 3 |
-| --------------------------- | ----: | ----: | ----: |
-| Pigment CSS (sx)            |   8.8 |   9.0 |   8.7 |
-| Pigment CSS (css class)     |   9.1 |   8.5 |   9.3 |
-| MUI makeStyles (with props) |  19.3 |  21.5 |  19.4 |
+| Method                      | Run 1 | Run 2 | Run 3 |  Avg |
+| --------------------------- | ----: | ----: | ----: | ---: |
+| Pigment CSS (sx)            |   8.8 |   9.0 |   8.7 |  8.8 |
+| Pigment CSS (css class)     |   9.1 |   8.5 |   9.3 |  9.0 |
+| MUI makeStyles (with props) |  19.3 |  21.5 |  19.4 | 20.1 |
 
 ### 4) Styles present in the DOM
 
@@ -189,24 +189,24 @@ All times are in milliseconds (ms).
 
 ### 1) Render 2048 components
 
-| Method                      |  Run 1 |  Run 2 |  Run 3 |
-| --------------------------- | -----: | -----: | -----: |
-| Pigment CSS (sx)            |  413.9 |  379.6 |  387.5 |
-| Pigment CSS (css class)     |  309.2 |  310.4 |  320.0 |
-| MUI makeStyles (with props) | 1800.5 | 2090.0 | 1968.8 |
+| Method                      |  Run 1 |  Run 2 |  Run 3 |    Avg |
+| --------------------------- | -----: | -----: | -----: | -----: |
+| Pigment CSS (sx)            |  413.9 |  379.6 |  387.5 |  393.7 |
+| Pigment CSS (css class)     |  309.2 |  310.4 |  320.0 |  313.2 |
+| MUI makeStyles (with props) | 1800.5 | 2090.0 | 1968.8 | 1953.1 |
 
 ### 2) Prop change → style update
 
-| Method                      | Run 1 |  Run 2 |  Run 3 |
-| --------------------------- | ----: | -----: | -----: |
-| Pigment CSS (sx)            | 572.3 |  640.3 |  652.2 |
-| Pigment CSS (css class)     | 528.3 |  481.2 |  514.9 |
-| MUI makeStyles (with props) | 989.2 | 1255.9 | 1292.6 |
+| Method                      | Run 1 |  Run 2 |  Run 3 |    Avg |
+| --------------------------- | ----: | -----: | -----: | -----: |
+| Pigment CSS (sx)            | 572.3 |  640.3 |  652.2 |  621.6 |
+| Pigment CSS (css class)     | 528.3 |  481.2 |  514.9 |  508.1 |
+| MUI makeStyles (with props) | 989.2 | 1255.9 | 1292.6 | 1179.2 |
 
 ### 3) Unmount 2048 components
 
-| Method                      | Run 1 | Run 2 | Run 3 |
-| --------------------------- | ----: | ----: | ----: |
-| Pigment CSS (sx)            | 102.8 |  96.3 | 102.8 |
-| Pigment CSS (css class)     |  94.4 | 100.9 | 102.9 |
-| MUI makeStyles (with props) | 113.8 | 273.2 | 292.1 |
+| Method                      | Run 1 | Run 2 | Run 3 |   Avg |
+| --------------------------- | ----: | ----: | ----: | ----: |
+| Pigment CSS (sx)            | 102.8 |  96.3 | 102.8 | 100.6 |
+| Pigment CSS (css class)     |  94.4 | 100.9 | 102.9 |  99.4 |
+| MUI makeStyles (with props) | 113.8 | 273.2 | 292.1 | 226.4 |
