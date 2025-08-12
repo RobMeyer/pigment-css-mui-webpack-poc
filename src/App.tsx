@@ -1,12 +1,21 @@
-import * as React from 'react';
-import { styled, css, keyframes } from '@pigment-css/react';
+import { lazy, Suspense, useRef, useState } from 'react';
+import { css } from '@pigment-css/react';
+// import { styled, css, keyframes } from '@pigment-css/react';
 
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
+import SquarePigmentCss from './SquarePigmentCss';
+import SquarePigmentSx from './SquarePigmentSx';
+import SquareMakeStylesWithProps from './SquareMakeStylesWithProps';
+const LazySquare = lazy(() => delayForDemo(import('./SquarePigmentSx')));
+
 const buttonClass = css({
-  background: 'lavender !important',
-  margin: '10px !important',
+  background: 'lightcyan',
+  margin: '10px',
+  "&:hover": {
+    background: 'aquamarine',
+  }
 });
 
 const divClass = css({
@@ -16,15 +25,59 @@ const divClass = css({
   height: 50,
   margin: 10,
   "&:hover": {
-    background: 'yellow',
+    background: 'mediumpurple',
   }
 })
 
 export function App() {
+  const [color, setColor] = useState('blue');
+  const [stressTestMode, setStressTestMode] = useState<'none' | 'makeStylesWithProp' | 'pigmentSx' | 'pigmentCss'>('none');
+  const [squareCount, setSquareCount] = useState(2048);
+
+  const stressTestColorChangeStartTimeRef = useRef<number | null>(null);
+  const [stressTestColorChangeDuration, setStressTestColorChangeDuration] = useState<number | null>(null);
+
+  const stressTestModeChangeStartTimeRef = useRef<number | null>(null);
+  const [stressTestModeChangeDuration, setStressTestModeChangeDuration] = useState<number | null>(null);
+
+  const changeColor = () => {
+    const randomHexColor = `#${Math.floor(Math.random() * 0xffffff)
+      .toString(16)
+      .padStart(6, "0")}`;
+
+
+    performance.mark('color-change-start');
+    stressTestColorChangeStartTimeRef.current = performance.now();
+
+    setColor(randomHexColor);
+    
+    setTimeout(() => {
+      const duration = performance.now() - (stressTestColorChangeStartTimeRef.current ?? 0);
+      performance.mark('color-change-end');
+      console.log(`Stress test color changed to ${randomHexColor} in ${duration}ms`);
+      setStressTestColorChangeDuration(duration);
+    }, 0);
+  };
+
+  const changeStressTestMode = (mode: typeof stressTestMode) => {
+    performance.mark('mode-change-start')
+    stressTestModeChangeStartTimeRef.current = performance.now();
+
+    setStressTestMode(mode);
+    setSquareCount(mode === 'none' ? 0 : 2048);
+
+    setTimeout(() => {
+      const duration = performance.now() - (stressTestModeChangeStartTimeRef.current ?? 0);
+      performance.mark('mode-change-end');
+      console.log(`Stress test mode changed to ${mode} in ${duration}ms`);
+      setStressTestModeChangeDuration(duration);
+    }, 0);
+  };
+
   return (
     <Box>
       <Button variant="contained">Standard MUI contained button</Button>
-      <Button sx={{ backgroundColor: 'rebeccapurple !important', color: 'white !important', margin: '10px !important'}}>sx-styled button</Button>
+      <Button sx={{ backgroundColor: 'rebeccapurple', color: 'white', margin: '10px', "&:hover": { background: 'forestgreen'} }}>sx-styled button</Button>
       <Button className={buttonClass}>css-styled button</Button>
 
       <h2>Box "inline"-styled with sx</h2>
@@ -33,8 +86,51 @@ export function App() {
       <h2>Div styled with `css` compile-time static CSS</h2>
       <div className={divClass}></div>
 
+      <h1>Square component tests</h1>
+      <Button variant='contained' onClick={changeColor}>Change color</Button>
+      
+      <h2>Lazy-loaded component with static css-variable-driven "dynamic" style</h2>
+      <Suspense fallback={<div>Loading...</div>}>
+        <LazySquare background={color} />
+      </Suspense>
+
+      <h2>Stress test</h2>
+      { stressTestColorChangeDuration !== null && <p>Stress test color changed to {color} in {stressTestColorChangeDuration}ms</p> }
+      { stressTestModeChangeDuration !== null && <p>Stress test mode changed to {stressTestMode} in {stressTestModeChangeDuration}ms</p>}
+
+      <select sx={{ marginBottom: 10}} value={stressTestMode} onChange={(e) => changeStressTestMode(e.target.value as typeof stressTestMode)}>
+        <option value="none">None</option>
+        <option value="pigmentCss">Pigment Css</option>
+        <option value="pigmentSx">Pigment Sx</option>
+        <option value="makeStylesWithProp">Make Styles With Props</option>
+      </select>
+      
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+      {Array(squareCount).fill(0).map((_, index) => {
+        return (
+          <>
+            {stressTestMode === 'pigmentSx' && (
+              <SquarePigmentSx key={index} background={color} />
+            )}
+            {stressTestMode === 'pigmentCss' && (
+              <SquarePigmentCss key={index} background={color} />
+            )}
+            {stressTestMode === 'makeStylesWithProp' && (
+              <SquareMakeStylesWithProps key={index} background={color} />
+            )}
+          </>
+        );
+      })}
+      </Box>
     </Box>
   );
+}
+
+// Add a fixed delay so you can see the loading state
+function delayForDemo<T>(promise: Promise<T>) {
+  return new Promise(resolve => {
+    setTimeout(resolve, 1000);
+  }).then(() => promise);
 }
 
 // const scale = keyframes({

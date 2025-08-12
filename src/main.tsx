@@ -13,9 +13,14 @@
 
 import { Container, createRoot } from "react-dom/client";
 import { App } from "./App";
+import { StyledEngineProvider } from '@mui/material/styles';
 
 import '@pigment-css/react/styles.css';
 
 const domNode = document.getElementById("root");
 const root = createRoot(domNode as Container);
-root.render(<App />);
+root.render(
+	<StyledEngineProvider injectFirst>
+		<App />
+	</StyledEngineProvider>
+);

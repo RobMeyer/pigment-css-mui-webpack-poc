@@ -1,6 +1,7 @@
 const path = require('path');
 const { webpack: PigmentPlugin, extendTheme } = require('@pigment-css/unplugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 // To learn more about theming, visit https://github.com/mui/pigment-css/blob/master/README.md#theming
 const theme = extendTheme({
@@ -35,7 +36,7 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
     ],
   },
@@ -52,5 +53,9 @@ module.exports = {
       theme,
     }),
     new HtmlWebpackPlugin({ template: './index.html' }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    }),
   ],
 };
